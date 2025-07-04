@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">NDKGIF</string>
+    <string name="gif_display_area">GIF Display Area</string>
+    <string name="disable_dithering">Disable Dithering</string>
+    <string name="encode_gif">Encode GIF</string>
+    <string name="decode_with_iterator">Decode with Iterator</string>
+    <string name="decode_gif">Decode GIF</string>
+    <string name="gif_decoder_encoder_demo">GIF Decoder/Encoder Demo</string>
+</resources>
