@@ -1,51 +1,68 @@
-Android NDK GIF Library
-========
+# Android NDK GIF Library (16KB Aligned)
 
-GIF library built with ndk and gradle in aar format for usage with android gradle build system.
+GIF library built with NDK and Gradle in AAR format for usage with Android Gradle build system.
 
-1.0.1 Change Log
-========
-* Added Gif Image Iterator for Image decoding.
-* Fixed a problem of residual image on transparent background.
+## 🚀 v1.0.2 - Google Play Store Ready!
 
-Encoding Option
-========
- - ENCODING_TYPE_SIMPLE_FAST 
-   - use low memory and encode fast. But low quality.
-   - ![ENCODING_TYPE_SIMPLE_FAST](https://github.com/waynejo/android-ndk-gif/blob/master/sample/tests/assets/result/result_ENCODING_TYPE_SIMPLE_FAST_1.gif)
- - ENCODING_TYPE_FAST (Thanks to commitor "JBurkeKF")
-   - encode fast. And better quality.
-   - ![ENCODING_TYPE_SIMPLE_FAST](https://github.com/waynejo/android-ndk-gif/blob/master/sample/tests/assets/result/result_ENCODING_TYPE_FAST_1.gif)
- - ENCODING_TYPE_NORMAL_LOW_MEMORY 
-   - use lower memory than ENCODING_TYPE_STABLE_HIGH_MEMORY. and image changing dynamic.
-   - ![ENCODING_TYPE_NORMAL_LOW_MEMORY](https://github.com/waynejo/android-ndk-gif/blob/master/sample/tests/assets/result/result_ENCODING_TYPE_NORMAL_LOW_MEMORY_1.gif)
- - ENCODING_TYPE_STABLE_HIGH_MEMORY 
-   - slowest and use high memory. But high quality and stable image sequence.
-   - ![ENCODING_TYPE_STABLE_HIGH_MEMORY](https://github.com/waynejo/android-ndk-gif/blob/master/sample/tests/assets/result/result_ENCODING_TYPE_STABLE_HIGH_MEMORY_1.gif)
+This version includes **16KB page alignment** to meet Google Play Store requirements for devices with 16KB memory pages.
 
-How to use
-========
+### ✅ What's New in v1.0.2
+- **16KB memory alignment** for Google Play Store compliance
+- **CMake build system** migration from ndk-build
+- **All architectures supported** (arm64-v8a, x86_64, armeabi-v7a, x86)
+- **Verified compatibility** with Google's alignment verification tool
+- Ready for immediate Google Play Store submission
 
-Remote repository
---------
+### 📋 Previous Changes (v1.0.1)
+- Added GIF Image Iterator for Image decoding
+- Fixed a problem of residual image on transparent background
 
+## 🎯 Google Play Store Compatibility
+
+This library is now fully compliant with Google Play Store's 16KB alignment requirements:
+
+```
+lib/armeabi-v7a/libandroidndkgif.so: ALIGNED (2**14) ✅
+lib/x86/libandroidndkgif.so: ALIGNED (2**14) ✅  
+lib/arm64-v8a/libandroidndkgif.so: ALIGNED (2**14) ✅
+lib/x86_64/libandroidndkgif.so: ALIGNED (2**14) ✅
+```
+
+## 📦 Installation
+
+### JitPack (Recommended)
 ```groovy
-...
-
 repositories {
-    maven { url 'https://repo1.maven.org/maven2' }
-    ...
+    maven { url 'https://jitpack.io' }
 }
 
 dependencies {
-    implementation ('io.github.waynejo:androidndkgif:1.0.1')
+    implementation 'com.github.DonMarv00:android-ndk-gif-16kb:v1.0.2'
 }
 ```
 
-Decoding using Iterator. (Less memory used)
---------
-```java
+### Maven Central (Original)
+```groovy
+repositories {
+    maven { url 'https://repo1.maven.org/maven2' }
+}
 
+dependencies {
+    implementation 'io.github.waynejo:androidndkgif:1.0.1'
+}
+```
+
+## 🎨 Encoding Options
+
+- **ENCODING_TYPE_SIMPLE_FAST** - Low memory, fast encoding, lower quality
+- **ENCODING_TYPE_FAST** - Fast encoding with better quality  
+- **ENCODING_TYPE_NORMAL_LOW_MEMORY** - Lower memory usage, dynamic image changing
+- **ENCODING_TYPE_STABLE_HIGH_MEMORY** - Highest quality, stable sequence, more memory
+
+## 💻 Usage
+
+### Decoding with Iterator (Memory Efficient)
+```java
 GifDecoder gifDecoder = new GifDecoder();
 final GifImageIterator iterator = gifDecoder.loadUsingIterator(destFile);
 while (iterator.hasNext()) {
@@ -57,10 +74,8 @@ while (iterator.hasNext()) {
 iterator.close();
 ```
 
-Decoding
---------
+### Standard Decoding
 ```java
-
 GifDecoder gifDecoder = new GifDecoder();
 boolean isSucceeded = gifDecoder.load(destFile);
 if (isSucceeded) {
@@ -70,24 +85,28 @@ if (isSucceeded) {
 }
 ```
 
-Encoding
---------
-
+### Encoding
 ```java
-
 GifEncoder gifEncoder = new GifEncoder();
 gifEncoder.init(width, height, filePath, GifEncoder.EncodingType.ENCODING_TYPE_NORMAL_LOW_MEMORY);
-
-// Bitmap is MUST ARGB_8888.
+// Bitmap MUST be ARGB_8888
 gifEncoder.encodeFrame(bitmap1, delayMs);
 gifEncoder.encodeFrame(bitmap2, delayMs);
-
 gifEncoder.close();
 ```
 
-# Reference
+## 🔧 Build Requirements
 
-* GIF Decoder is originally based on https://code.google.com/p/android-gifview/ .
+- **CMake:** 3.22.1+
+- **NDK:** 25.0+ (tested with 29.0.13599879)
+- **Gradle:** 8.11.1+
+- **Java:** 17+
 
----------
+## 📝 Reference
+
+GIF Decoder is originally based on [android-gifview](https://code.google.com/p/android-gifview/).
+
+---
+
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-android--ndk--gif-green.svg?style=true)](https://android-arsenal.com/details/1/3585)
+![Google Play Store Ready](https://img.shields.io/badge/Google%20Play%20Store-16KB%20Aligned-brightgreen)
