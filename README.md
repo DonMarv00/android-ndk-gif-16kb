@@ -30,7 +30,7 @@ lib/x86_64/libandroidndkgif.so: ALIGNED (2**14) ✅
 
 ## 📦 Installation
 
-### JitPack (Recommended)
+### JitPack (Recommended, supports 16KB alignment)
 ```groovy
 repositories {
     maven { url 'https://jitpack.io' }
